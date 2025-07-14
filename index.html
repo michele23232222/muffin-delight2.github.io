@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muffin Delight - Deliziosi Muffin Artigianali</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #f9c74f;
+            --secondary: #f8961e;
+            --accent: #90be6d;
+            --dark: #4d4d4d;
+            --light: #f8f9fa;
+            --danger: #e63946;
+            --success: #2a9d8f;
+            --background: #fef9f0;
+            --card: #fffdf7;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: 12px;
+            right: 200px;
+            background-color: var(--danger);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+            width: 100%;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Home Page */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1603532648955-a039f2e9da8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+            padding: 2rem;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background-color: var(--card);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: #666;
+        }
+
+        /* Products Page */
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: var(--card);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            height: 200px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-image i {
+            font-size: 4rem;
+            color: var(--primary);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .product-info p {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            min-height: 60px;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+
+        .add-to-cart {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        /* Cart Page */
+        .cart-container {
+            background-color: var(--card);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .cart-items {
+            margin-bottom: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+        }
+
+        .cart-item-image i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-details h3 {
+            margin-bottom: 0.3rem;
+        }
+
+        .cart-item-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .remove-item {
+            color: var(--danger);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+
+        .cart-summary {
+            background-color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+        }
+
+        .summary-total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            margin-top: 1rem;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        /* Checkout Form */
+        .checkout-form {
+            background-color: var(--card);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-header {
+            margin-bottom: 2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(249, 199, 79, 0.2);
+        }
+
+        .error-message {
+            color: var(--danger);
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        /* Orders Page */
+        .orders-container {
+            background-color: var(--card);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .admin-header h2 {
+            color: var(--dark);
+        }
+
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+
+        .orders-table th, .orders-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .orders-table th {
+            background-color: var(--light);
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .orders-table tr:hover {
+            background-color: #fff9e6;
+        }
+
+        .status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status.pending {
+            background-color: #ffeeba;
+            color: #856404;
+        }
+
+        .status.completed {
+            background-color: #c3e6cb;
+            color: #155724;
+        }
+
+        .status.shipped {
+            background-color: #b8daff;
+            color: #004085;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #777;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* Order Confirmation */
+        .confirmation {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .confirmation i {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 1.5rem;
+        }
+
+        .confirmation h2 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .confirmation p {
+            margin-bottom: 2rem;
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 5%;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #444;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .full-width {
+                grid-column: span 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                gap: 0.5rem;
+            }
+
+            nav a {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .cart-item-image {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .orders-table th, .orders-table td {
+                padding: 0.5rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkout-form {
+                padding: 1.5rem;
+            }
+            
+            .cart-item-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .orders-table {
+                font-size: 0.8rem;
+            }
+
+            .orders-table th, .orders-table td {
+                padding: 0.3rem;
+            }
+        }
+        
+        /* New styles for customer info in orders */
+        .customer-info {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 5px;
+            font-size: 0.85rem;
+        }
+        
+        .customer-info p {
+            margin: 3px 0;
+        }
+        
+        .order-details-toggle {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 0;
+            margin-top: 5px;
+        }
+        
+        .order-details-toggle:hover {
+            text-decoration: underline;
+        }
+        
+        .customer-details {
+            display: none;
+            background-color: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-muffin"></i>
+                <h1>Muffin <span>Delight</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                    <li><a href="#" class="nav-link" data-page="products">Prodotti</a></li>
+                    <li><a href="#" class="nav-link" data-page="orders" id="orders-link">Ordini</a></li>
+                    <li><a href="#" class="nav-link" data-page="cart" id="cart-link">
+                        <i class="fas fa-shopping-cart"></i> Carrello
+                        <span class="cart-count">0</span>
+                    </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Page -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <h2>Deliziosi Muffin Artigianali</h2>
+                <p>Scopri la nostra selezione di muffin appena sfornati, preparati con ingredienti di prima qualità e tanto amore</p>
+                <button class="btn" id="shop-now">Ordina Subito</button>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Ingredienti Naturali</h3>
+                    <p>Utilizziamo solo ingredienti freschi, locali e di alta qualità per i nostri muffin</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bread-slice"></i>
+                    <h3>Sfornati Giornalmente</h3>
+                    <p>Tutti i nostri prodotti vengono preparati e sfornati quotidianamente per garantire freschezza</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-truck"></i>
+                    <h3>Consegna</h3>
+                    <p>Per la consegna , si concordera un punto via telefono </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Page -->
+        <section id="products" class="page">
+            <div class="products-header">
+                <h2>I Nostri Muffin</h2>
+                <div class="filter">
+                    <select>
+                        <option>Tutte le categorie</option>
+                        <option>Classici</option>
+                        <option>Speciali</option>
+                        <option>Senza Glutine</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card" data-id="1" data-name="Muffin al Cioccolato" data-price="2.50">
+                    <div class="product-image">
+                        <i class="fas fa-muffin"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Muffin al Cioccolato</h3>
+                        <p>Delizioso muffin con gocce di cioccolato fondente e un cuore morbido al cacao</p>
+                        <div class="product-meta">
+                            <div class="price">€2.50</div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card" data-id="2" data-name="Muffin ai Mirtilli" data-price="2.50">
+                    <div class="product-image">
+                        <i class="fas fa-muffin"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Muffin ai Mirtilli</h3>
+                        <p>Sofficissimo muffin con mirtilli freschi e una spolverata di zucchero di canna</p>
+                        <div class="product-meta">
+                            <div class="price">€2.50</div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card" data-id="3" data-name="Muffin alla Vaniglia" data-price="2.20">
+                    <div class="product-image">
+                        <i class="fas fa-muffin"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Muffin alla Vaniglia</h3>
+                        <p>Classico muffin alla vaniglia con glassa allo zucchero e decorazioni colorate</p>
+                        <div class="product-meta">
+                            <div class="price">€2.20</div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card" data-id="4" data-name="Muffin al Limone" data-price="2.30">
+                    <div class="product-image">
+                        <i class="fas fa-muffin"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Muffin al Limone</h3>
+                        <p>Muffin fresco al limone con glassa agrumata e scorza di limone candita</p>
+                        <div class="product-meta">
+                            <div class="price">€2.30</div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card" data-id="5" data-name="Muffin alla Carota" data-price="2.80">
+                    <div class="product-image">
+                        <i class="fas fa-muffin"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Muffin alla Carota</h3>
+                        <p>Muffin integrale con carote grattugiate, noci e una crema al formaggio spalmabile</p>
+                        <div class="product-meta">
+                            <div class="price">€2.80</div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card" data-id="6" data-name="Muffin al Cocco" data-price="2.70">
+                    <div class="product-image">
+                        <i class="fas fa-muffin"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Muffin al Cocco</h3>
+                        <p>Muffin esotico con cocco grattugiato, latte di cocco e scaglie di cioccolato bianco</p>
+                        <div class="product-meta">
+                            <div class="price">€2.70</div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cart Page -->
+        <section id="cart" class="page">
+            <div class="cart-header">
+                <h2>Il tuo carrello</h2>
+                <button class="btn" id="continue-shopping">
+                    <i class="fas fa-arrow-left"></i> Continua lo shopping
+                </button>
+            </div>
+            
+            <div class="cart-container">
+                <div class="cart-items" id="cart-items-container">
+                    <!-- Cart items will be added here dynamically -->
+                    <div class="empty-cart-message">
+                        <p>Il tuo carrello è vuoto.</p>
+                    </div>
+                </div>
+                
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <span>Subtotale:</span>
+                        <span id="subtotal">€0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Spedizione:</span>
+                        <span id="shipping">€2.50</span>
+                    </div>
+                    <div class="summary-row summary-total">
+                        <span>Totale:</span>
+                        <span id="total">€2.50</span>
+                    </div>
+                    <button class="btn checkout-btn" id="proceed-to-checkout">Procedi al checkout</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Checkout Page -->
+        <section id="checkout" class="page">
+            <div class="cart-header">
+                <h2>Checkout</h2>
+                <button class="btn" id="back-to-cart">
+                    <i class="fas fa-arrow-left"></i> Torna al carrello
+                </button>
+            </div>
+            
+            <div class="checkout-form">
+                <div class="form-header">
+                    <h3>Informazioni personali</h3>
+                    <p>Inserisci i tuoi dati per completare l'ordine</p>
+                </div>
+                
+                <form id="order-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="first-name">Nome *</label>
+                            <input type="text" id="first-name" name="first-name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="last-name">Cognome *</label>
+                            <input type="text" id="last-name" name="last-name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Telefono *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="address">Indirizzo di consegna *</label>
+                            <input type="text" id="address" name="address" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="city">Città *</label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="zip">CAP *</label>
+                            <input type="text" id="zip" name="zip" required>
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="notes">Note aggiuntive</label>
+                        <textarea id="notes" name="notes" rows="4" placeholder="Indicazioni speciali per la consegna..."></textarea>
+                    </div>
+                    <button type="submit" class="btn checkout-btn">Completa l'ordine</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Orders Page -->
+        <section id="orders" class="page">
+            <div class="admin-header">
+                <h2>Gestione Ordini</h2>
+                <button class="btn" id="print-orders">
+                    <i class="fas fa-print"></i> Stampa Ordini
+                </button>
+            </div>
+
+            <div class="orders-container">
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>ID Ordine</th>
+                            <th>Cliente</th>
+                            <th>Contatti</th>
+                            <th>Data</th>
+                            <th>Prodotti</th>
+                            <th>Totale</th>
+                            <th>Stato</th>
+                            <th>Dettagli</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-table-body">
+                        <!-- Orders will be loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="login-container">
+                <h2>Accesso Titolare</h2>
+                <div class="form-group">
+                    <label for="username">Nome Utente</label>
+                    <input type="text" id="username" placeholder="Inserisci il tuo username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Inserisci la tua password">
+                    <div class="error-message" id="login-error">Credenziali non valide. Riprova.</div>
+                </div>
+                <button class="btn" id="login-btn">Accedi</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Order Confirmation Modal -->
+    <div class="modal" id="confirmation-modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="confirmation">
+                <i class="fas fa-check-circle"></i>
+                <h2>Ordine Confermato!</h2>
+                <p>Grazie per il tuo ordine. I tuoi muffin sono in preparazione e verranno consegnati al più presto.</p>
+                <button class="btn" id="continue-shopping-btn">Continua lo shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Muffin Delight</h3>
+                <p>Portiamo il sapore della felicità direttamente a casa tua con i nostri muffin artigianali preparati con amore e ingredienti di prima qualità.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Link Utili</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Chi Siamo</a></li>
+                    <li><a href="#">Prodotti</a></li>
+                    <li><a href="#">Contattaci</a></li>
+                    <li><a href="#">Termini e Condizioni</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>I Nostri Prodotti</h3>
+                <ul>
+                    <li><a href="#">Muffin Classici</a></li>
+                    <li><a href="#">Muffin Speciali</a></li>
+                    <li><a href="#">Muffin Senza Glutine</a></li>
+                    <li><a href="#">Muffin Vegani</a></li>
+                    <li><a href="#">Box Regalo</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contatti</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Via dei Dolci 123, Milano</li>
+                    <li><i class="fas fa-phone"></i> +39 02 1234567</li>
+                    <li><i class="fas fa-envelope"></i> info@muffindelight.it</li>
+                    <li><i class="fas fa-clock"></i> Lun-Sab: 8:00 - 20:00</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Muffin Delight. Tutti i diritti riservati.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cart functionality
+            let cart = [];
+            const cartCount = document.querySelector('.cart-count');
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const subtotalElement = document.getElementById('subtotal');
+            const totalElement = document.getElementById('total');
+            const shippingCost = 2.50;
+            
+            // Navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+            
+            // Initialize cart
+            function updateCart() {
+                // Update cart count
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCount.textContent = totalItems;
+                
+                // Update cart items display
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<div class="empty-cart-message"><p>Il tuo carrello è vuoto.</p></div>';
+                    document.getElementById('proceed-to-checkout').disabled = true;
+                    return;
+                }
+                
+                let cartHTML = '';
+                let subtotal = 0;
+                
+                cart.forEach((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    subtotal += itemTotal;
+                    
+                    cartHTML += `
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            <i class="fas fa-muffin"></i>
+                        </div>
+                        <div class="cart-item-details">
+                            <h3>${item.name}</h3>
+                            <div class="cart-item-meta">
+                                <div class="price">€${item.price.toFixed(2)}</div>
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn decrease" data-index="${index}">-</button>
+                                    <span>${item.quantity}</span>
+                                    <button class="quantity-btn increase" data-index="${index}">+</button>
+                                    <button class="remove-item" data-index="${index}"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                });
+                
+                cartItemsContainer.innerHTML = cartHTML;
+                subtotalElement.textContent = `€${subtotal.toFixed(2)}`;
+                totalElement.textContent = `€${(subtotal + shippingCost).toFixed(2)}`;
+                
+                // Add event listeners to quantity buttons
+                document.querySelectorAll('.decrease').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = this.dataset.index;
+                        if (cart[index].quantity > 1) {
+                            cart[index].quantity--;
+                        } else {
+                            cart.splice(index, 1);
+                        }
+                        updateCart();
+                    });
+                });
+                
+                document.querySelectorAll('.increase').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = this.dataset.index;
+                        cart[index].quantity++;
+                        updateCart();
+                    });
+                });
+                
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = this.dataset.index;
+                        cart.splice(index, 1);
+                        updateCart();
+                    });
+                });
+                
+                document.getElementById('proceed-to-checkout').disabled = false;
+            }
+            
+            // Add to cart functionality
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productCard = this.closest('.product-card');
+                    const id = productCard.dataset.id;
+                    const name = productCard.dataset.name;
+                    const price = parseFloat(productCard.dataset.price);
+                    
+                    // Check if product is already in cart
+                    const existingItem = cart.find(item => item.id === id);
+                    
+                    if (existingItem) {
+                        existingItem.quantity++;
+                    } else {
+                        cart.push({
+                            id,
+                            name,
+                            price,
+                            quantity: 1
+                        });
+                    }
+                    
+                    updateCart();
+                    
+                    // Animation effect
+                    this.style.backgroundColor = 'var(--success)';
+                    setTimeout(() => {
+                        this.style.backgroundColor = 'var(--accent)';
+                    }, 500);
+                });
+            });
+            
+            // Navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetPage = this.getAttribute('data-page');
+                    
+                    // Handle orders page access
+                    if (targetPage === 'orders') {
+                        const isOwner = localStorage.getItem('isOwner') === 'true';
+                        
+                        if (!isOwner) {
+                            document.getElementById('login-modal').style.display = 'flex';
+                            return;
+                        } else {
+                            renderOrdersTable();
+                        }
+                    }
+                    
+                    // Update active navigation
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show target page
+                    pages.forEach(page => {
+                        page.classList.remove('active');
+                        if (page.id === targetPage) {
+                            page.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Shop Now Button
+            document.getElementById('shop-now').addEventListener('click', function() {
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                document.querySelector('[data-page="products"]').classList.add('active');
+                
+                pages.forEach(page => page.classList.remove('active'));
+                document.getElementById('products').classList.add('active');
+            });
+            
+            // Continue Shopping Button
+            document.getElementById('continue-shopping').addEventListener('click', function() {
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                document.querySelector('[data-page="products"]').classList.add('active');
+                
+                pages.forEach(page => page.classList.remove('active'));
+                document.getElementById('products').classList.add('active');
+            });
+            
+            // Proceed to Checkout Button
+            document.getElementById('proceed-to-checkout').addEventListener('click', function() {
+                if (cart.length === 0) return;
+                // Mostra la pagina checkout
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                document.getElementById('cart-link').classList.remove('active'); // disattiva il link "Carrello"
+                pages.forEach(page => page.classList.remove('active'));
+                document.getElementById('checkout').classList.add('active');
+            });
+            
+            // Back to Cart Button
+            document.getElementById('back-to-cart').addEventListener('click', function() {
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                document.querySelector('[data-page="cart"]').classList.add('active');
+                
+                pages.forEach(page => page.classList.remove('active'));
+                document.getElementById('cart').classList.add('active');
+            });
+            
+            // Order Form Submission
+            document.getElementById('order-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const firstName = document.getElementById('first-name').value;
+                const lastName = document.getElementById('last-name').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const address = document.getElementById('address').value;
+                const city = document.getElementById('city').value;
+                const zip = document.getElementById('zip').value;
+                const notes = document.getElementById('notes').value;
+                
+                // Create order object
+                const order = {
+                    id: 'MD' + new Date().getTime(), // Simple unique ID
+                    customer: {
+                        firstName,
+                        lastName,
+                        email,
+                        phone,
+                        address,
+                        city,
+                        zip,
+                        notes
+                    },
+                    items: [...cart],
+                    total: parseFloat(totalElement.textContent.replace('€', '')),
+                    date: new Date().toLocaleDateString('it-IT'),
+                    status: 'In preparazione'
+                };
+                
+                // Save to localStorage
+                let orders = JSON.parse(localStorage.getItem('orders')) || [];
+                orders.push(order);
+                localStorage.setItem('orders', JSON.stringify(orders));
+                
+                // Show confirmation modal
+                document.getElementById('confirmation-modal').style.display = 'flex';
+                
+                // Clear cart
+                cart = [];
+                updateCart();
+                
+                // Reset form
+                this.reset();
+            });
+            
+            // Login Functionality
+            document.getElementById('login-btn').addEventListener('click', function() {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const error = document.getElementById('login-error');
+                
+                // Simple validation (in real app, this would be server-side)
+                if (username === 'admin' && password === 'muffin123') {
+                    localStorage.setItem('isOwner', 'true');
+                    document.getElementById('login-modal').style.display = 'none';
+                    
+                    // Show orders page
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    document.querySelector('[data-page="orders"]').classList.add('active');
+                    
+                    pages.forEach(page => page.classList.remove('active'));
+                    document.getElementById('orders').classList.add('active');
+                    
+                    // Render orders table
+                    renderOrdersTable();
+                } else {
+                    error.style.display = 'block';
+                }
+            });
+            
+            // Close modals
+            document.querySelectorAll('.close-modal').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+            
+            // Continue shopping from confirmation
+            document.getElementById('continue-shopping-btn').addEventListener('click', function() {
+                document.getElementById('confirmation-modal').style.display = 'none';
+                
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                document.querySelector('[data-page="home"]').classList.add('active');
+                
+                pages.forEach(page => page.classList.remove('active'));
+                document.getElementById('home').classList.add('active');
+
+            });
+            
+            // Print orders
+            document.getElementById('print-orders').addEventListener('click', function() {
+                window.print();
+            });
+            
+            // Render orders table
+            function renderOrdersTable() {
+                const orders = JSON.parse(localStorage.getItem('orders')) || [];
+                const tableBody = document.getElementById('orders-table-body');
+                tableBody.innerHTML = '';
+                
+                if (orders.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="8" style="text-align: center;">Nessun ordine trovato</td></tr>';
+                    return;
+                }
+                
+                orders.forEach(order => {
+                    // Format the products list: e.g., "2x Cioccolato, 3x Mirtilli"
+                    const products = order.items.map(item => `${item.quantity}x ${item.name}`).join(', ');
+                    
+                    // Determine status class
+                    let statusClass = 'pending';
+                    if (order.status === 'Completato') statusClass = 'completed';
+                    else if (order.status === 'Spedito') statusClass = 'shipped';
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${order.id}</td>
+                        <td>${order.customer.firstName} ${order.customer.lastName}</td>
+                        <td>
+                            <div class="customer-info">
+                                <p>${order.customer.email}</p>
+                                <p>${order.customer.phone}</p>
+                            </div>
+                        </td>
+                        <td>${order.date}</td>
+                        <td>${products}</td>
+                        <td>€${order.total.toFixed(2)}</td>
+                        <td><span class="status ${statusClass}">${order.status}</span></td>
+                        <td>
+                            <button class="order-details-toggle">Mostra dettagli</button>
+                            <div class="customer-details">
+                                <p><strong>Indirizzo:</strong> ${order.customer.address}</p>
+                                <p><strong>Città:</strong> ${order.customer.city} (${order.customer.zip})</p>
+                                ${order.customer.notes ? `<p><strong>Note:</strong> ${order.customer.notes}</p>` : ''}
+                            </div>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                    
+                    // Add event listener to toggle button
+                    const toggleBtn = row.querySelector('.order-details-toggle');
+                    const detailsDiv = row.querySelector('.customer-details');
+                    
+                    toggleBtn.addEventListener('click', function() {
+                        if (detailsDiv.style.display === 'block') {
+                            detailsDiv.style.display = 'none';
+                            this.textContent = 'Mostra dettagli';
+                        } else {
+                            detailsDiv.style.display = 'block';
+                            this.textContent = 'Nascondi dettagli';
+                        }
+                    });
+                });
+            }
+            
+            // Initialize cart
+            updateCart();
+        });
+    </script>
+</body>
+</html>
