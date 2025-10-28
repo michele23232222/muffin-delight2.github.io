@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comune di Montaldo Bormida - Sito Ufficiale</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset e variabili */
+        :root {
+            --primary-color: #1d1d1f;
+            --secondary-color: #86868b;
+            --accent-color: #0071e3;
+            --light-color: #f5f5f7;
+            --dark-color: #1d1d1f;
+            --text-color: #1d1d1f;
+            --text-light: #86868b;
+            --background: #ffffff;
+            --section-bg: #f5f5f7;
+            --card-bg: #ffffff;
+            --transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --header-height: 70px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: var(--text-color);
+            background-color: var(--background);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 60px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 980px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #0077ed;
+            transform: scale(1.03);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(0, 113, 227, 0.1);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 12px;
+        }
+
+        .logo-text h1 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 150px;
+            padding-bottom: 100px;
+            background: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" fill="%230071e3" opacity="0.03"><polygon points="1000,0 0,0 0,1000 500,500 1000,1000"/></svg>') no-repeat center center;
+            background-size: cover;
+        }
+
+        .hero h2 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -1.5px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.4;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        /* Storia */
+        .history {
+            background-color: var(--background);
+        }
+
+        .history-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .history-text p {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .history-image {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .history-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .history-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Eventi */
+        .events {
+            background-color: var(--section-bg);
+        }
+
+        .events-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .event-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .event-image {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .event-card:hover .event-image img {
+            transform: scale(1.1);
+        }
+
+        .event-info {
+            padding: 25px;
+        }
+
+        .event-date {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .event-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* Servizi */
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 25px;
+        }
+
+        .service-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* Galleria */
+        .gallery {
+            background-color: var(--section-bg);
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            height: 250px;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            color: white;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        /* Contatti */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-right: 20px;
+            min-width: 30px;
+        }
+
+        .contact-details h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #d2d2d7;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+        }
+
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 70px 0 30px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section ul li a {
+            color: #a1a1a6;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #86868b;
+        }
+
+        /* Media Queries */
+        @media (max-width: 1024px) {
+            .hero h2 {
+                font-size: 3.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: var(--transition);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            nav.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 0 0 15px 0;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .history-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .events-container,
+            .services-container {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 70px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="Screenshot 2025-10-28 alle 11.24.42.png" alt="Stemma Comune di Montaldo Bormida">
+                <div class="logo-text">
+                    <h1>Montaldo Bormida</h1>
+                    <p>Comune in Provincia di Alessandria</p>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#storia">Storia</a></li>
+                    <li><a href="#eventi">Eventi</a></li>
+                    <li><a href="#servizi">Servizi</a></li>
+                    <li><a href="#galleria">Galleria</a></li>
+                    <li><a href="#contatti">Contatti</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h2>Montaldo Bormida</h2>
+            <p>Un borgo medievale immerso nelle colline del Monferrato, tra storia, natura e tradizione.</p>
+            <div class="hero-buttons">
+                <a href="#storia" class="btn">Scopri la storia</a>
+                <a href="#eventi" class="btn btn-outline">Prossimi eventi</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Storia -->
+    <section id="storia" class="history">
+        <div class="container">
+            <h2 class="section-title">La Nostra Storia</h2>
+            <p class="section-subtitle">Scopri le origini e l'evoluzione del nostro affascinante borgo</p>
+            <div class="history-content">
+                <div class="history-text">
+                    <p>Montaldo Bormida è un piccolo comune italiano di circa 600 abitanti situato in Piemonte, nella provincia di Alessandria. Il paese sorge su una collina a 334 metri sul livello del mare, dominando la valle del fiume Bormida.</p>
+                    <p>Le origini di Montaldo Bormida risalgono al Medioevo, quando il territorio era sotto il controllo dei Marchesi del Monferrato. Il nome "Montaldo" deriva dal latino "Mons Altus", che significa "monte alto", a testimonianza della sua posizione strategica.</p>
+                    <p>Nel corso dei secoli, il borgo ha mantenuto la sua struttura medievale, con vicoli stretti e case in pietra che si arrampicano sulla collina. Tra i monumenti di interesse storico spiccano la Chiesa Parrocchiale di San Martino, risalente al XVIII secolo, e i resti dell'antico castello.</p>
+                </div>
+                <div class="history-image">
+                    <img src="im1.png" alt="Panorama di Montaldo Bormida">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Eventi -->
+    <section id="eventi" class="events">
+        <div class="container">
+            <h2 class="section-title">Eventi e Manifestazioni</h2>
+            <p class="section-subtitle">Partecipa alle iniziative che animano la vita del nostro borgo</p>
+            <div class="events-container">
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="im5.png" alt="Sagra del paese">
+                    </div>
+                    <div class="event-info">
+                        <div class="event-date">15-17 Agosto 2023</div>
+                        <h3 class="event-title">Sagra di Ferragosto</h3>
+                        <p>Tre giorni di festa con stand gastronomici, musica e spettacoli pirotecnici.</p>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="im4.png" alt="Sagra della Farinata">
+                    </div>
+                    <div class="event-info">
+                        <div class="event-date">10-11 Settembre 2023</div>
+                        <h3 class="event-title">Sagra della farinata</h3>
+                        <p>Degustazione dei vini locali accompagnati da prodotti tipici del territorio.</p>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="im5.png" alt="Mercatino di Natale">
+                    </div>
+                    <div class="event-info">
+                        <div class="event-date">8 Dicembre 2023</div>
+                        <h3 class="event-title">Mercatino di Natale</h3>
+                        <p>Artigianato locale, decorazioni natalizie e prodotti enogastronomici.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servizi -->
+    <section id="servizi" class="services">
+        <div class="container">
+            <h2 class="section-title">Servizi Comunali</h2>
+            <p class="section-subtitle">Tutti i servizi a disposizione dei cittadini</p>
+            <div class="services-container">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 class="service-title">Anagrafe e Stato Civile</h3>
+                    <p>Servizi di registrazione anagrafica, certificati e stato civile.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-drafting-compass"></i>
+                    </div>
+                    <h3 class="service-title">Ufficio Tecnico</h3>
+                    <p>Gestione del territorio, edilizia e manutenzione del patrimonio comunale.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-euro-sign"></i>
+                    </div>
+                    <h3 class="service-title">Ufficio Tributi</h3>
+                    <p>Informazioni e pagamento di IMU, TARI e altri tributi locali.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galleria -->
+    <section id="galleria" class="gallery">
+        <div class="container">
+            <h2 class="section-title">Galleria Fotografica</h2>
+            <p class="section-subtitle">Immagini che raccontano la bellezza del nostro territorio</p>
+            <div class="gallery-container">
+                <div class="gallery-item">
+                    <img src="im3.png" alt="Chiesa di San Martino">
+                    <div class="gallery-overlay">
+                        <h3>Chiesa di San Martino</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="im4.png" alt="Veduta del paese">
+                    <div class="gallery-overlay">
+                        <h3>Veduta del paese</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="im5.png" alt="Vigneti del territorio">
+                    <div class="gallery-overlay">
+                        <h3>Vigneti del territorio</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="im2.png" alt="Evento culturale">
+                    <div class="gallery-overlay">
+                        <h3>Evento culturale</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="im3.png" alt="Paesaggio collinare">
+                    <div class="gallery-overlay">
+                        <h3>Paesaggio collinare</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="im1.png" alt="Architettura locale">
+                    <div class="gallery-overlay">
+                        <h3>Architettura locale</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contatti -->
+    <section id="contatti" class="contact">
+        <div class="container">
+            <h2 class="section-title">Contatti</h2>
+            <p class="section-subtitle">Mettiti in contatto con l'amministrazione comunale</p>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Indirizzo</h3>
+                            <p>Piazza Municipio, 1<br>15010 Montaldo Bormida (AL)</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Telefono</h3>
+                            <p>+39 0144 123456</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p>info@comune.montaldo.bormida.al.it</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Orari Uffici</h3>
+                            <p>Lunedì - Venerdì: 9:00-13:00<br>Martedì e Giovedì: 15:00-17:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <input type="text" placeholder="Nome e Cognome" required>
+                        <input type="email" placeholder="Email" required>
+                        <input type="text" placeholder="Oggetto" required>
+                        <textarea placeholder="Messaggio" required></textarea>
+                        <button type="submit" class="btn">Invia Messaggio</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>Comune di Montaldo Bormida</h3>
+                    <p>Scopri la bellezza del nostro borgo tra le colline del Monferrato.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Link Utili</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#storia">Storia</a></li>
+                        <li><a href="#eventi">Eventi</a></li>
+                        <li><a href="#servizi">Servizi</a></li>
+                        <li><a href="#galleria">Galleria</a></li>
+                        <li><a href="#contatti">Contatti</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Servizi</h3>
+                    <ul>
+                        <li><a href="#">Anagrafe</a></li>
+                        <li><a href="#">Stato Civile</a></li>
+                        <li><a href="#">Ufficio Tecnico</a></li>
+                        <li><a href="#">Tributi</a></li>
+                        <li><a href="#">Biblioteca</a></li>
+                        <li><a href="#">Polizia Locale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Informazioni</h3>
+                    <ul>
+                        <li><a href="#">Albo Pretorio</a></li>
+                        <li><a href="#">Amministrazione Trasparente</a></li>
+                        <li><a href="#">Bandi di Gara</a></li>
+                        <li><a href="#">Statuto Comunale</a></li>
+                        <li><a href="#">Piano Urbanistico</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Comune di Montaldo Bormida - Tutti i diritti riservati | P.IVA 12345678901</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu mobile
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mainNav.classList.toggle('active');
+            const icon = this.querySelector('i');
+            if (mainNav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Chiudi il menu quando si clicca su un link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+            });
+        });
+
+        // Smooth scrolling per i link interni
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Aggiungi classe active al menu in base alla sezione visibile
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
